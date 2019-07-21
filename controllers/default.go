@@ -13,18 +13,59 @@ type MainController struct {
 
 func (c *MainController) Get() {
 
+	// 插入数据
+	//o := orm.NewOrm()
+	//user := models.User{}
+	//user.Name = "testName"
+	//user.Pwd = "123456"
+	//_,err := o.Insert(&user)
+	//if err != nil {
+	//	logs.Info("插入失败", err)
+	//	return
+	//}
+
+	// 查询数据
+	//o := orm.NewOrm()
+	//user := models.User{}
+	//user.Id = 2
+	//err := o.Read(&user)
+	//if err != nil {
+	//	logs.Info("查询失败", err)
+	//	return
+	//}
+	//logs.Info("查询成功", user)
+
+	// 更新数据
+	//o := orm.NewOrm()
+	//user := models.User{}
+	//user.Id = 2
+	//err := o.Read(&user)
+	//if err == nil {
+	//	user.Name = "testName2"
+	//	user.Pwd = "234567"
+	//	_,err := o.Update(&user)
+	//	if err != nil {
+	//		logs.Info("更新失败", err)
+	//	}
+	//	logs.Info("更新成功")
+	//}
+
+	// 删除数据
 	o := orm.NewOrm()
-
 	user := models.User{}
+	user.Id = 2
 
-	user.Name = "testName"
-	user.Pwd = "123456"
-
-	_,err := o.Insert(&user)
-
+	err := o.Read(&user)
 	if err != nil {
-		logs.Info("插入失败", err)
-		return
+		logs.Info("没有查找到当前项")
+	} else {
+		logs.Info("查找完毕")
+		_, err := o.Delete(&user)
+		if err != nil {
+			logs.Info("删除错误", err)
+			return
+		}
+		logs.Info("删除成功")
 	}
 
 	c.Data["msg"] = "beego.me"
